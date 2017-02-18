@@ -1,10 +1,12 @@
 buildscript {
     dependencies {
         classpath "com.blackbaud:gradle-internal:3.+"
+        classpath "com.blackbaud:gradle-docker:1+"
     }
 }
 
 apply plugin: "blackbaud-internal"
+apply plugin: "docker"
 
 dependencies {
     compile "com.google.guava:guava:18.0"
@@ -17,3 +19,25 @@ dependencies {
     }
 }
 
+File hadoopDir = new File(project.buildDir, "hadoop")
+File hadoopInputDir = new File(hadoopDir, "input")
+File hadoopOutputDir = new File(hadoopDir, "output")
+File hadoopScriptDir = new File(hadoopDir, "scripts")
+
+docker {
+    container {
+        name "hadoop-pig"
+        imageName "quay.io/blackbaud/hadoop-pig"
+        volume "${hadoopInputDir.absolutePath}:/mnt/input"
+        volume "${hadoopOutputDir.absolutePath}:/mnt/output"
+        volume "${hadoopScriptDir.absolutePath}:/mnt/scripts"
+    }
+}
+
+task createHadoopDirs << {
+    hadoopInputDir.mkdirs()
+    hadoopOutputDir.mkdirs()
+    hadoopScriptDir.mkdirs()
+}
+
+createHadoopPig.dependsOn createHadoopDirs
