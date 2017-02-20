@@ -12,7 +12,6 @@ class PigTestSpec extends Specification {
 
     RandomGenerator aRandom = new RandomGenerator()
     PigLocalExecutor executor = new PigLocalExecutor()
-            .hadoopBuildDir(new File("/Users/mike.lueders/IdeaProjects/Blackbaud/pig-test/build/hadoop/"))
     File pigScript
 
     def setup() {
