@@ -9,11 +9,8 @@ apply plugin: "blackbaud-internal"
 apply plugin: "docker"
 
 dependencies {
-    compile "com.google.guava:guava:18.0"
-    compile "org.projectlombok:lombok:1.16.4"
-
     testCompile "com.blackbaud:common-test:1.+"
-    testCompile "com.blackbaud:hadoop-pig-test:0.+"
+    testCompile "com.blackbaud:common-exec:0.+"
     testCompile ("org.spockframework:spock-core:1.0-groovy-2.4") {
         exclude group: "org.codehaus.groovy"
     }
