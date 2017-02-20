@@ -5,6 +5,7 @@ import com.blackbaud.exec.pig.PigLocalExecutor
 import com.blackbaud.testsupport.RandomGenerator
 import spock.lang.Specification
 
+import java.util.stream.Collectors
 import java.util.stream.IntStream
 import java.util.stream.Stream
 
@@ -54,9 +55,9 @@ class PigTestSpec extends Specification {
     }
 
     private List<Integer> readOutputFile(PigLocalExecutor executor, String fileName) {
-        executor.readGzipOutputFile(fileName).collect {
-            Integer.parseInt(it)
-        }
+        executor.readGzipOutputFile(fileName)
+                .map({ line -> Integer.parseInt(line) })
+                .collect(Collectors.toList())
     }
 
 }
