@@ -1,6 +1,4 @@
 -- Clear Outputs
-rmf $OUTPUT/unmerged_members_to_remove.gz
-rmf $OUTPUT/unmerged_members_to_add.gz
 rmf $OUTPUT/members_to_remove.gz
 rmf $OUTPUT/members_to_add.gz
 
@@ -18,8 +16,5 @@ SPLIT combined INTO member_to_add IF source_member IS NULL,
 members_to_add = FOREACH member_to_add GENERATE target_member;
 members_to_remove = FOREACH member_to_remove GENERATE source_member;
 
-STORE members_to_add INTO '$OUTPUT/unmerged_members_to_add.gz' USING PigStorage();
-STORE members_to_remove INTO '$OUTPUT/unmerged_members_to_remove.gz' USING PigStorage();
-
-fs -getmerge $OUTPUT/unmerged_members_to_add.gz $OUTPUT/members_to_add.gz
-fs -getmerge $OUTPUT/unmerged_members_to_remove.gz $OUTPUT/members_to_remove.gz
+STORE members_to_add INTO '$OUTPUT/members_to_add.gz' USING PigStorage();
+STORE members_to_remove INTO '$OUTPUT/members_to_remove.gz' USING PigStorage();

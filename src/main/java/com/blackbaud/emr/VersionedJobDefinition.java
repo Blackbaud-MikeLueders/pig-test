@@ -23,6 +23,10 @@ public class VersionedJobDefinition {
         return jobDefinition.getName().replaceAll("\\s+", "_") + "_V" + version;
     }
 
+    public String getScriptPath() {
+        return "scripts/" + getScriptName();
+    }
+
     public String getBucketName() {
         return jobDefinition.getBucketName();
     }
